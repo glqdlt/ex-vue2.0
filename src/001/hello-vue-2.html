@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html xmlns:v-on="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,18 +10,64 @@
     <button @click="upvote">Upvote : {{upvotes}}</button>
     <pre>{{$data}}</pre>
 </div>
+<div id="calcurator">
+    <form>
+        <input type="number" v-model.number="a">
+        <select v-model="oper">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+        </select>
+        <input type="number" v-model.number="b">
+        <button type="submit" @click="calculate">calculate</button>
+    </form>
+    <h2>Result : {{a}} {{oper}} {{b}} ={{c}}</h2>
+    <pre>{{$data}}</pre>
+</div>
 
 <script src="node_modules/vue/dist/vue.min.js"></script>
 <script>
     new Vue({
-        el : '#app',
-        data : {
-            upvotes : 0
+        el: '#app',
+        data: {
+            upvotes: 0
         },
-        methods : {
-            upvote : function(){
+        methods: {
+            upvote: function () {
                 this.upvotes++;
             }
+        }
+    })
+
+    new Vue({
+        el: '#calcurator',
+        data: {
+            a: 1,
+            b: 2,
+            c: null,
+            oper: "+",
+        },
+        methods: {
+            calculate: function () {
+                event.preventDefault();
+                switch (this.oper) {
+                    case "+" :
+                        this.c = this.a + this.b
+                        break;
+                    case "-" :
+                        this.c = this.a - this.b
+                        break;
+                    case "*" :
+                        this.c = this.a * this.b
+                        break;
+                    case "/" :
+                        this.c = this.a / this.b
+                        break;
+
+                }
+            }
+
         }
     })
 </script>
