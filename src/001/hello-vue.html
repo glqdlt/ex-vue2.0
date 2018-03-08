@@ -20,6 +20,16 @@
     <pre>{{$data}}</pre>
 </div>
 
+<div id="app3">
+    <input type="number" v-model="arr">
+    <ul>
+       <li v-for="i in Number(arr)">
+           {{i -1}} times 4 equals {{ (i-1) * 4}}
+       </li>
+    </ul>
+    <pre>{{$data}}</pre>
+</div>
+
 <script src="node_modules/vue/dist/vue.min.js"></script>
 <script>
     'use strict'
@@ -40,6 +50,12 @@
         }
     })
 
+    new Vue({
+        el : '#app3',
+        data : {
+            arr : 11
+        }
+    })
 </script>
 </body>
 </html>
