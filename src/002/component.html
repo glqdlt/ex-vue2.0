@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <story></story>
+    <story></story>
+    <story></story>
+    <story></story>
+</div>
+
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script>
+    Vue.component('story', {
+        template : '<h1>My horse is amazing!</h1>'
+    })
+
+    new Vue({
+        el : '.container'
+    })
+</script>
+</body>
+</html>

@@ -38,10 +38,22 @@
         </li>
     </ul>
 
+    <hr>
+    <ul>
+        <li v-for="story in stories">
+            {{story.writer | snitch}} : {{story.text}}
+        </li>
+    </ul>
     <pre>{{$data}}</pre>
 </div>
 <script src="node_modules/vue/dist/vue.min.js"></script>
 <script>
+
+    // 이 스크립트가 아래에 있을 경우, 바로 반영이 안된다.
+    Vue.filter('snitch',function(s){
+        return s + ' nim';
+    })
+
     new Vue({
         el: '#app',
         data : {
@@ -87,6 +99,7 @@
         }
 
     })
+
 
 
 
