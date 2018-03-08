@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Let's hear some stories</h1>
         <ul>
-            <story v-for="story in stories" :story="story"></story>
+            <story v-for="story in stories" :story="story" :favorite="favorite"></story>
         </ul>
         <pre>{{$data}}</pre>
     </div>
@@ -22,6 +22,8 @@
     <li>
         {{story.writer}} said "{{story.plot}}"
         <button v-show="!story.voted" @click="upvote">Upvote</button>
+        <button v-show="!isFavorite" @click="setFavorite">Favorite</button>
+        <span v-show="isFavorite"></span>
     </li>
 </template>
 
@@ -39,11 +41,19 @@
 
     Vue.component('story', {
         template: '#story-template',
-        props: ['story'],
+        props: ['story','favorite'],
         methods : {
             upvote : function(){
                 this.story.upvotes++;
                 this.story.voted = true;
+            },
+            setFavorite : function(){
+                this.favorite = this.story;
+            }
+        },
+        computed : {
+            isFavorite : function(){
+                return this.story === this.favorite;
             }
         }
     });
@@ -51,7 +61,8 @@
     new Vue({
         el : '#app',
         data : {
-            stories : stories
+            stories : stories,
+            favorite : {}
         }
     })
 </script>
