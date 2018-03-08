@@ -12,7 +12,7 @@
 </div>
 <div id="calcurator">
     <form>
-        <input type="number" v-model.number="a">
+        <input type="number" v-model.number="a" @keyup.enter="calculate">
         <select v-model="oper">
             <option>+</option>
             <option>-</option>
@@ -20,7 +20,8 @@
             <option>/</option>
         </select>
         <input type="number" v-model.number="b">
-        <button type="submit" @click="calculate">calculate</button>
+        <!--.prevent == event.preventDefault() 이벤트 한정자-->
+        <button type="submit" @click.prevent="calculate">calculate</button>
     </form>
     <h2>Result : {{a}} {{oper}} {{b}} ={{c}}</h2>
     <pre>{{$data}}</pre>
@@ -50,7 +51,8 @@
         },
         methods: {
             calculate: function () {
-                event.preventDefault();
+                // @click.prevent 를 이용함으로 아래 vent.preventDefault() 를 주석 처리한다.
+                // event.preventDefault();
                 switch (this.oper) {
                     case "+" :
                         this.c = this.a + this.b
