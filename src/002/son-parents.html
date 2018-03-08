@@ -9,9 +9,10 @@
 
 <div class="container text-center">
     <p>Total Click : {{votes}}</p>
-    <food name="gogi" @voted="countVote"></food>
-    <food name="sewoo" @voted="countVote"></food>
-    <food name="cheese" @voted="countVote"></food>
+    <button @click="reset">Reset Votes</button>
+    <food name="gogi"></food>
+    <food name="sewoo"></food>
+    <food name="cheese"></food>
     <h1>log :</h1>
     <ul>
         <li v-for="vote in log">{{vote}}</li>
@@ -30,6 +31,8 @@
 </template>
 <script src="node_modules/vue/dist/vue.min.js"></script>
 <script>
+    var bus = new Vue();
+
     Vue.component('food', {
         template: '#food',
         props: ['name'],
@@ -43,8 +46,14 @@
         methods: {
             vote: function (event) {
                 this.votes++;
-                this.$emit('voted',event.srcElement.textContent);
+                bus.$emit('voted',event.srcElement.textContent);
+            },
+            reset : function(){
+                this.votes = 0
             }
+        },
+        created () {
+            bus.$on('reset', this.reset);
         }
     })
 
@@ -58,7 +67,14 @@
             countVote: function (srcElment) {
                 this.votes++;
                 this.log.push(srcElment + 'reveiced a vote')
+            },
+            reset : function(){
+                this.votes = 0;
+                bus.$emit('reset');
             }
+        },
+        created (){
+            bus.$on('voted',this.countVote)
         }
     })
 </script>
