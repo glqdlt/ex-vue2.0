@@ -10,6 +10,16 @@
     <pre>{{$data}}</pre>
 </div>
 
+<div id="app2">
+    <select v-model="sexual">
+        <option value="1">Man</option>
+        <option value="2">Woman</option>
+    </select>
+    <p v-if="sexual === '1'">You Select Man</p>
+    <p v-else>You Select Woman</p>
+    <pre>{{$data}}</pre>
+</div>
+
 <script src="node_modules/vue/dist/vue.min.js"></script>
 <script>
     'use strict'
@@ -21,6 +31,13 @@
             message : message
         }
 
+    })
+
+    new Vue({
+        el : '#app2',
+        data : {
+            sexual : 1
+        }
     })
 
 </script>
