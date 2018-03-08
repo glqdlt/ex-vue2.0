@@ -6,7 +6,8 @@
 </head>
 <body>
 <div id="app">
-    <button v-on:click="upvotes++">Upvote : {{upvotes}}</button>
+    <button v-on:click="upvote">Upvote : {{upvotes}}</button>
+    <button @click="upvote">Upvote : {{upvotes}}</button>
     <pre>{{$data}}</pre>
 </div>
 
@@ -16,6 +17,11 @@
         el : '#app',
         data : {
             upvotes : 0
+        },
+        methods : {
+            upvote : function(){
+                this.upvotes++;
+            }
         }
     })
 </script>
