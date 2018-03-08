@@ -12,6 +12,34 @@
     <pre>{{$data}}</pre>
 
 </div>
+
+<div id="filter">
+    <ul>
+       <li v-for="story in storiesBy('alex')">
+        {{story.writer}} : {{story.text}}
+       </li>
+    </ul>
+    <hr>
+    <button @click="stories[0].upvotes++">{{stories[0}.wirter}</button>
+    <button @click="stories[1].upvotes++">{{stories[1}.wirter}</button>
+    <button @click="stories[2].upvotes++">{{stories[2}.wirter}</button>
+    <button @click="stories[3].upvotes++">{{stories[3}.wirter}</button>
+    <ul>
+        <li v-for="story in famous">
+            {{story.writer}} : {{story.text}}
+        </li>
+    </ul>
+
+    <hr>
+    <input v-model="query"/>
+    <ul>
+        <li v-for="story in search">
+            {{story.writer}} : {{story.text}}
+        </li>
+    </ul>
+
+    <pre>{{$data}}</pre>
+</div>
 <script src="node_modules/vue/dist/vue.min.js"></script>
 <script>
     new Vue({
@@ -25,6 +53,42 @@
             }
         }
     })
+
+    new Vue({
+        el : '#filter',
+        data : {
+            query : ' ',
+            stories : [
+                {writer : 'alex', text : 'asdasdasd1adafagfaf', upvotes : 28},
+                {writer : 'jon', text : 'asdasd2222asdadafagfaf', upvotes : 31},
+                {writer : 'kim', text : 'asda33sdasdadafagfaf' , upvotes : 44},
+                {writer : 'yona', text : '123asdasdasdadafagfaf' , upvotes : 2},
+            ]
+        },
+        methods :{
+            storiesBy : function(writer){
+                return this.stories.filter(function(story){
+                    return story.writer === writer;
+                })
+            }
+        },
+        computed :{
+            famous : function(){
+                return this.stories.filter(function(item){
+                    return item.upvotes > 40;
+                })
+            },
+            search : function(){
+                var query = this.query;
+                return this.stories.filter(function(story){
+                    return story.writer.includes(query);
+                })
+            }
+        }
+
+    })
+
+
 
 </script>
 </body>
