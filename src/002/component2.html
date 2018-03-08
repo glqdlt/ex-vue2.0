@@ -12,13 +12,16 @@
         <ul>
             <story v-for="story in stories" :story="story"></story>
         </ul>
+        <pre>{{$data}}</pre>
     </div>
 </div>
+
 
 
 <template id="story-template">
     <li>
         {{story.writer}} said "{{story.plot}}"
+        <button v-show="!story.voted" @click="upvote">Upvote</button>
     </li>
 </template>
 
@@ -28,15 +31,21 @@
     'use strict'
 
     var stories = [
-        {plot : 'My Horse is amazing',writer : 'Mr. weebl'},
-        {plot : 'Narwhals invented Shish kebab',writer : 'Mr. weebl'},
-        {plot : 'The dark side of the Force is storonger',writer : 'Darth Vader'},
-        {plot : 'One does not simply walk into mordor',writer : 'Boromir'},
+        {plot : 'My Horse is amazing',writer : 'Mr. weebl', upvotes:28, voted: false},
+        {plot : 'Narwhals invented Shish kebab',writer : 'Mr. weebl', upvotes : 8, voted : false},
+        {plot : 'The dark side of the Force is storonger',writer : 'Darth Vader' , upvotes : 49 , voted : false},
+        {plot : 'One does not simply walk into mordor',writer : 'Boromir' , upvotes : 60 , voted : false},
     ];
 
     Vue.component('story', {
         template: '#story-template',
-        props: ['story']
+        props: ['story'],
+        methods : {
+            upvote : function(){
+                this.story.upvotes++;
+                this.story.voted = true;
+            }
+        }
     });
 
     new Vue({
