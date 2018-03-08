@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <div class="container">
+        <h1>Let's hear some stories</h1>
+        <ul>
+            <story v-for="story in stories" :story="story"></story>
+        </ul>
+    </div>
+</div>
+
+
+<template id="story-template">
+    <li>
+        {{story.writer}} said "{{story.plot}}"
+    </li>
+</template>
+
+</body>
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script>
+    'use strict'
+
+    var stories = [
+        {plot : 'My Horse is amazing',writer : 'Mr. weebl'},
+        {plot : 'Narwhals invented Shish kebab',writer : 'Mr. weebl'},
+        {plot : 'The dark side of the Force is storonger',writer : 'Darth Vader'},
+        {plot : 'One does not simply walk into mordor',writer : 'Boromir'},
+    ];
+
+    Vue.component('story', {
+        template: '#story-template',
+        props: ['story']
+    });
+
+    new Vue({
+        el : '#app',
+        data : {
+            stories : stories
+        }
+    })
+</script>
+</html>
