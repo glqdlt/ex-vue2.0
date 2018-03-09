@@ -21,7 +21,9 @@
     </ul>
 </template>
 <script src="node_modules/vue/dist/vue.min.js"></script>
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<!--axios를 쓰기 때문에 주석-->
+<!--<script src="node_modules/jquery/dist/jquery.min.js"></script>-->
+<script src="node_modules/axios/dist/axios.min.js"></script>
 <script>
     'use strict'
 
@@ -45,8 +47,17 @@
             topics: []
         },
         mounted: function () {
-            $.get('https://jsonplaceholder.typicode.com/posts?userId=1', function (data) {
-                vm.topics = data;
+            // $.get('https://jsonplaceholder.typicode.com/posts?userId=1', function (data) {
+            //     vm.topics = data;
+            // })
+            axios({
+                method: 'get',
+                url:'https://jsonplaceholder.typicode.com/posts?userId=1'
+            }).then(function(response){
+                // axios는 response 패킷 덩어리가 오기 때문에 body의 data를 직접 꺼내서 topics에 넣어줘야 함.
+                vm.topics=response.data;
+            }).catch(function(err){
+                console.error(err);
             })
         },
 
