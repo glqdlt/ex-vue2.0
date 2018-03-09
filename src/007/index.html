@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
 </head>
 <body>
 
@@ -19,10 +20,8 @@
 <script src="node_modules/vue/dist/vue.min.js"></script>
 <script src="node_modules/vue-router/dist/vue-router.min.js"></script>
 <script>
-
-    const Foo = {template : '<div>foo</div>'}
-    const Bar = {template : '<div>bar</div>'}
-
+    const Foo = {template : '<div><p class="animated bounce">foo</p></div>'}
+    const Bar = {template : '<div><p class="animated fadeOut">bar</p></div>'}
 
     const routes = [
         {path : '/foo', component : Foo},
@@ -36,7 +35,6 @@
     const app = new Vue({
         router
     }).$mount('#app')
-
 </script>
 
 </body>
