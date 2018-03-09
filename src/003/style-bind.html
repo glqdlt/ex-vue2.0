@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .red {
+            background: red;
+        }
+
+        .blue {
+            background: blue;
+        }
+
+        .purple {
+            background: purple;
+        }
+
+        .green {
+            background: green;
+        }
+
+        .box {
+            float: left;
+            width: 200px;
+            height: 200px;
+            margin: 40px;
+            border: 1px solid rgba(0, 0, 0, 2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container text-center">
+    <div class="box" v-bind:class="{'red' : color, 'blue' : !color}"></div>
+    <div class="box" v-bind:class="{'red' : color, 'green' : !color}"></div>
+    <div class="box" v-bind:class="{'red' : color, 'blue' : !color}"></div>
+    <div class="box" :class="{'red' : color, 'green' : !color}"></div>
+    <div class="box" :style="{'background':'blue',fontSize:'20px'}"></div>
+    <div class="box" :style="niceStyle"></div>
+    <div class="box" :style="[niceStyle, badStyle]"></div>
+    <button v-on:click="flipColor">Flip color!</button>
+
+</div>
+</body>
+
+<script src="node_modules/vue/dist/vue.min.js">
+
+</script>
+<script>
+    new Vue({
+        el: '.container',
+        data: {
+            color: true,
+            niceStyle : {
+                background : 'green',
+                fontSize : '20px'
+            },
+            badStyle : {
+                background: 'blue'
+            }
+        },
+        methods: {
+            flipColor: function () {
+                this.color = !this.color;
+            },
+        }
+    })
+</script>
+</html>
