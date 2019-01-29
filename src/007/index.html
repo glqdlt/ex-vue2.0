@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
+</head>
+<body>
+
+<div id="app">
+    <h2>Router</h2>
+    <p>
+        <router-link to="/foo">Go to Foo</router-link>
+        <router-link to="/bar">Go to Bar</router-link>
+    </p>
+    <router-view></router-view>
+</div>
+
+
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.min.js"></script>
+<script>
+    const Foo = {template : '<div><p class="animated bounce">foo</p></div>'}
+    const Bar = {template : '<div><p class="animated fadeOut">bar</p></div>'}
+
+    const routes = [
+        {path : '/foo', component : Foo},
+        {path : '/bar', component : Bar}
+    ]
+
+    const router = new VueRouter({
+        routes
+    })
+
+    const app = new Vue({
+        router
+    }).$mount('#app')
+</script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <div class="container">
+        <story v-for="topic in topics" :topic="topic"></story>
+    </div>
+    <pre>{{$data}}</pre>
+</div>
+<template id="template-story-raw">
+    <ul>
+        <li>{{topic.id}}</li>
+        <li>{{topic.title}}</li>
+        <li>{{topic.body}}</li>
+        <button @click="deleteTopic(topic)">Delete</button>
+    </ul>
+</template>
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<!--axios를 쓰기 때문에 주석-->
+<!--<script src="node_modules/jquery/dist/jquery.min.js"></script>-->
+<script src="node_modules/axios/dist/axios.min.js"></script>
+<script>
+    'use strict'
+
+    // reet service test server 로.. 아래 서비스를 이용한다.
+    // https://jsonplaceholder.typicode.com/
+
+    Vue.component('story', {
+        template: '#template-story-raw',
+        props: ['topic'],
+        methods: {
+            deleteTopic : function(target){
+                var index = vm.topics.indexOf(target);
+                vm.topics.splice(index,1)
+            }
+        }
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            topics: []
+        },
+        mounted: function () {
+            // $.get('https://jsonplaceholder.typicode.com/posts?userId=1', function (data) {
+            //     vm.topics = data;
+            // })
+            axios({
+                method: 'get',
+                url:'https://jsonplaceholder.typicode.com/posts?userId=1'
+            }).then(function(response){
+                // axios는 response 패킷 덩어리가 오기 때문에 body의 data를 직접 꺼내서 topics에 넣어줘야 함.
+                vm.topics=response.data;
+            }).catch(function(err){
+                console.error(err);
+            })
+        },
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div class="container text-center">
+    <p>Total Click : {{votes}}</p>
+    <button @click="reset">Reset Votes</button>
+    <food name="gogi"></food>
+    <food name="sewoo"></food>
+    <food name="cheese"></food>
+    <h1>log :</h1>
+    <ul>
+        <li v-for="vote in log">{{vote}}</li>
+    </ul>
+
+    <pre>{{$data}}</pre>
+</div>
+
+
+</body>
+<template id="food">
+    <div>
+        <p>This votes.. {{votes}}</p>
+        <button @click="vote">{{name}}</button>
+    </div>
+</template>
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script>
+    var bus = new Vue();
+
+    Vue.component('food', {
+        template: '#food',
+        props: ['name'],
+        data:
+            function () {
+                return {
+                    votes: 0
+                }
+            }
+        ,
+        methods: {
+            vote: function (event) {
+                this.votes++;
+                bus.$emit('voted',event.srcElement.textContent);
+            },
+            reset : function(){
+                this.votes = 0
+            }
+        },
+        created () {
+            bus.$on('reset', this.reset);
+        }
+    })
+
+    new Vue({
+        el: '.container',
+        data: {
+            votes: 0,
+            log : []
+        },
+        methods: {
+            countVote: function (srcElment) {
+                this.votes++;
+                this.log.push(srcElment + 'reveiced a vote')
+            },
+            reset : function(){
+                this.votes = 0;
+                bus.$emit('reset');
+            }
+        },
+        created (){
+            bus.$on('voted',this.countVote)
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    'use strict'
+    var dataSet = {
+        name: 'haha', thisFunction: (function () {
+            const arr = [];
+            for (let i = 0; i < 99; i++) {
+                arr.push(i);
+            }
+            return arr;
+        })()
+    }
+
+    console.log(this.dataSet);
+</script>
+</body>
+</html>

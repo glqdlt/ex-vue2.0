@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <story v-bind:meta="{props1 : 'props1', props2 : 'props2'}" writer="jhun" plot="Hello Vue Component"></story>
+    <story :meta="{props1 : 'props1', props2 : 'props2'}" writer="kim" plot="It's amazing"></story>
+</div>
+
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script type="text/template" id="story-template">
+<h1>{{writer}} : {{plot}} , {{meta.props1}} ~ {{meta.props2}}</h1>
+</script>
+<script>
+    'use strict'
+    // Vue.component('story', {
+    //     template : '<h1>My horse is amazing!</h1>'
+    // })
+
+    Vue.component('story',{
+        props : ['plot','writer', 'meta'],
+        template : '#story-template'
+    })
+
+    new Vue({
+        el : '.container',
+    })
+</script>
+</body>
+</html>

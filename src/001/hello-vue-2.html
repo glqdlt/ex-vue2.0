@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <button v-on:click="upvote">Upvote : {{upvotes}}</button>
+    <button @click="upvote">Upvote : {{upvotes}}</button>
+    <pre>{{$data}}</pre>
+</div>
+<div id="calcurator">
+    <form>
+        <input type="number" v-model.number="a" @keyup.enter="calculate">
+        <select v-model="oper">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+        </select>
+        <input type="number" v-model.number="b">
+        <!--.prevent == event.preventDefault() 이벤트 한정자-->
+        <button type="submit" @click.prevent="calculate">calculate</button>
+    </form>
+    <h2>Result : {{a}} {{oper}} {{b}} ={{c}}</h2>
+    <pre>{{$data}}</pre>
+</div>
+
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            upvotes: 0
+        },
+        methods: {
+            upvote: function () {
+                this.upvotes++;
+            }
+        }
+    })
+
+    new Vue({
+        el: '#calcurator',
+        data: {
+            a: 1,
+            b: 2,
+            c: null,
+            oper: "+",
+        },
+        methods: {
+            calculate: function () {
+                // @click.prevent 를 이용함으로 아래 vent.preventDefault() 를 주석 처리한다.
+                // event.preventDefault();
+                switch (this.oper) {
+                    case "+" :
+                        this.c = this.a + this.b
+                        break;
+                    case "-" :
+                        this.c = this.a - this.b
+                        break;
+                    case "*" :
+                        this.c = this.a * this.b
+                        break;
+                    case "/" :
+                        this.c = this.a / this.b
+                        break;
+
+                }
+            }
+
+        }
+    })
+</script>
+</body>
+</html>
